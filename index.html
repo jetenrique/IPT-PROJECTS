@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity 1: API Fundamentals - Interactive Demo</title>
+  <meta name="description" content="Connect to public APIs (Cat Facts API & Weather API), fetch real JSON data, and display extracted fields.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="badge">IPT Activity 1</div>
+      <h1>API Fundamentals Showcase</h1>
+      <p class="subtitle">Interacting with real public APIs before diving into theory.</p>
+    </header>
+
+    <main class="main-content">
+      <!-- Navigation / API Selector -->
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-catfacts" onclick="switchTab('catfacts')">
+          <span class="tab-icon">🐱</span> Cat Facts API
+        </button>
+        <button class="tab-btn" id="tab-weather" onclick="switchTab('weather')">
+          <span class="tab-icon">🌤️</span> OpenWeather / Weather API
+        </button>
+      </div>
+
+      <!-- CAT FACTS SECTION -->
+      <section id="section-catfacts" class="api-section active">
+        <div class="card-header">
+          <div>
+            <h2>Cat Facts Public API</h2>
+            <p class="endpoint">GET <code>https://catfact.ninja/fact</code></p>
+          </div>
+          <button id="btn-fetch-cat" class="primary-btn" onclick="fetchCatFactUI()">
+            <span class="btn-spinner" id="cat-spinner"></span>
+            <span class="btn-text">⚡ Fetch New Fact</span>
+          </button>
+        </div>
+
+        <div class="extracted-fields-grid">
+          <div class="field-card highlight-card">
+            <span class="field-label">Field 1: Fact Text (String)</span>
+            <p class="field-value" id="cat-fact-text">Click "Fetch New Fact" to load real API data...</p>
+          </div>
+
+          <div class="field-card stat-card">
+            <span class="field-label">Field 2: Text Length (Integer)</span>
+            <div class="stat-value">
+              <span id="cat-fact-length">--</span>
+              <span class="stat-unit">characters</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="raw-json-box">
+          <div class="json-header">
+            <span>Raw JSON Response</span>
+            <span class="status-badge" id="cat-status">Status: Ready</span>
+          </div>
+          <pre><code id="cat-raw-json">// Response JSON will appear here after fetching...</code></pre>
+        </div>
+      </section>
+
+      <!-- WEATHER SECTION -->
+      <section id="section-weather" class="api-section">
+        <div class="card-header">
+          <div>
+            <h2>Public Weather API</h2>
+            <p class="endpoint">GET <code>https://api.open-meteo.com/v1/forecast</code></p>
+          </div>
+          <div class="city-selector">
+            <select id="city-select" onchange="fetchWeatherUI()">
+              <option value="Manila" data-lat="14.5995" data-lon="120.9842" selected>Manila, PH</option>
+              <option value="Tokyo" data-lat="35.6762" data-lon="139.6503">Tokyo, JP</option>
+              <option value="London" data-lat="51.5074" data-lon="-0.1278">London, UK</option>
+              <option value="New York" data-lat="40.7128" data-lon="-74.0060">New York, US</option>
+            </select>
+            <button id="btn-fetch-weather" class="primary-btn" onclick="fetchWeatherUI()">
+              <span class="btn-spinner" id="weather-spinner"></span>
+              <span class="btn-text">🌡️ Fetch Weather</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="extracted-fields-grid weather-grid">
+          <div class="field-card stat-card blue-glow">
+            <span class="field-label">Field 1: City / Location</span>
+            <div class="location-value" id="weather-location">Manila, PH</div>
+            <span class="sub-detail" id="weather-coords">Lat: 14.5995, Lon: 120.9842</span>
+          </div>
+
+          <div class="field-card stat-card orange-glow">
+            <span class="field-label">Field 2: Current Temperature</span>
+            <div class="stat-value">
+              <span id="weather-temp">--</span>
+              <span class="stat-unit">°C</span>
+            </div>
+            <span class="sub-detail" id="weather-wind">Wind: -- km/h</span>
+          </div>
+        </div>
+
+        <div class="raw-json-box">
+          <div class="json-header">
+            <span>Raw JSON Response</span>
+            <span class="status-badge" id="weather-status">Status: Ready</span>
+          </div>
+          <pre><code id="weather-raw-json">// Response JSON will appear here after fetching...</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Integrative Programming & Technologies | <strong>Activity 1: API Fundamentals</strong></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
